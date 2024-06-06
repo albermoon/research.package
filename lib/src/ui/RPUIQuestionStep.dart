@@ -172,24 +172,24 @@ class RPUIQuestionStepState extends State<RPUIQuestionStep> with CanSaveResult {
   }
 }
 
-// Render the title above the questionBody
-class Title extends StatelessWidget {
-  final String title;
-  const Title(this.title, {super.key});
+// // Render the title above the questionBody
+// class Title extends StatelessWidget {
+//   final String title;
+//   const Title(this.title, {super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    if (title.contains('</')) {
-      return HTML.toRichText(context, title);
-    } else {
-      return Padding(
-        padding: const EdgeInsets.only(bottom: 24, left: 8, right: 8, top: 8),
-        child: Text(
-          title,
-          style: Theme.of(context).textTheme.titleLarge,
-          textAlign: TextAlign.start,
-        ),
-      );
-    }
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     if (title.contains('</')) {
+//       return HTML.toRichText(context, title);
+//     } else {
+//       return Padding(
+//         padding: const EdgeInsets.only(bottom: 24, left: 8, right: 8, top: 8),
+//         child: Text(
+//           title,
+//           style: Theme.of(context).textTheme.titleLarge,
+//           textAlign: TextAlign.start,
+//         ),
+//       );
+//     }
+//   }
+// }
