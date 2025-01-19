@@ -10,21 +10,13 @@ RPAnswerFormat _$RPAnswerFormatFromJson(Map<String, dynamic> json) =>
     RPAnswerFormat()
       ..$type = json['__type'] as String?
       ..questionType =
-          $enumDecode(_$RPQuestionTypeEnumMap, json['question_type']);
+          $enumDecode(_$RPQuestionTypeEnumMap, json['questionType']);
 
-Map<String, dynamic> _$RPAnswerFormatToJson(RPAnswerFormat instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['question_type'] = _$RPQuestionTypeEnumMap[instance.questionType]!;
-  return val;
-}
+Map<String, dynamic> _$RPAnswerFormatToJson(RPAnswerFormat instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'questionType': _$RPQuestionTypeEnumMap[instance.questionType]!,
+    };
 
 const _$RPQuestionTypeEnumMap = {
   RPQuestionType.None: 'None',
@@ -47,90 +39,66 @@ const _$RPQuestionTypeEnumMap = {
 RPIntegerAnswerFormat _$RPIntegerAnswerFormatFromJson(
         Map<String, dynamic> json) =>
     RPIntegerAnswerFormat(
-      minValue: json['min_value'] as int,
-      maxValue: json['max_value'] as int,
+      minValue: (json['minValue'] as num).toInt(),
+      maxValue: (json['maxValue'] as num).toInt(),
       suffix: json['suffix'] as String?,
     )
       ..$type = json['__type'] as String?
       ..questionType =
-          $enumDecode(_$RPQuestionTypeEnumMap, json['question_type']);
+          $enumDecode(_$RPQuestionTypeEnumMap, json['questionType']);
 
 Map<String, dynamic> _$RPIntegerAnswerFormatToJson(
-    RPIntegerAnswerFormat instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['min_value'] = instance.minValue;
-  val['max_value'] = instance.maxValue;
-  writeNotNull('suffix', instance.suffix);
-  val['question_type'] = _$RPQuestionTypeEnumMap[instance.questionType]!;
-  return val;
-}
+        RPIntegerAnswerFormat instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'minValue': instance.minValue,
+      'maxValue': instance.maxValue,
+      if (instance.suffix case final value?) 'suffix': value,
+      'questionType': _$RPQuestionTypeEnumMap[instance.questionType]!,
+    };
 
 RPDoubleAnswerFormat _$RPDoubleAnswerFormatFromJson(
         Map<String, dynamic> json) =>
     RPDoubleAnswerFormat(
-      minValue: (json['min_value'] as num).toDouble(),
-      maxValue: (json['max_value'] as num).toDouble(),
+      minValue: (json['minValue'] as num).toDouble(),
+      maxValue: (json['maxValue'] as num).toDouble(),
       suffix: json['suffix'] as String?,
     )
       ..$type = json['__type'] as String?
       ..questionType =
-          $enumDecode(_$RPQuestionTypeEnumMap, json['question_type']);
+          $enumDecode(_$RPQuestionTypeEnumMap, json['questionType']);
 
 Map<String, dynamic> _$RPDoubleAnswerFormatToJson(
-    RPDoubleAnswerFormat instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['min_value'] = instance.minValue;
-  val['max_value'] = instance.maxValue;
-  writeNotNull('suffix', instance.suffix);
-  val['question_type'] = _$RPQuestionTypeEnumMap[instance.questionType]!;
-  return val;
-}
+        RPDoubleAnswerFormat instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'minValue': instance.minValue,
+      'maxValue': instance.maxValue,
+      if (instance.suffix case final value?) 'suffix': value,
+      'questionType': _$RPQuestionTypeEnumMap[instance.questionType]!,
+    };
 
 RPChoiceAnswerFormat _$RPChoiceAnswerFormatFromJson(
         Map<String, dynamic> json) =>
     RPChoiceAnswerFormat(
       answerStyle:
-          $enumDecode(_$RPChoiceAnswerStyleEnumMap, json['answer_style']),
+          $enumDecode(_$RPChoiceAnswerStyleEnumMap, json['answerStyle']),
       choices: (json['choices'] as List<dynamic>)
           .map((e) => RPChoice.fromJson(e as Map<String, dynamic>))
           .toList(),
     )
       ..$type = json['__type'] as String?
       ..questionType =
-          $enumDecode(_$RPQuestionTypeEnumMap, json['question_type']);
+          $enumDecode(_$RPQuestionTypeEnumMap, json['questionType']);
 
 Map<String, dynamic> _$RPChoiceAnswerFormatToJson(
-    RPChoiceAnswerFormat instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['question_type'] = _$RPQuestionTypeEnumMap[instance.questionType]!;
-  val['choices'] = instance.choices;
-  val['answer_style'] = _$RPChoiceAnswerStyleEnumMap[instance.answerStyle]!;
-  return val;
-}
+        RPChoiceAnswerFormat instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'questionType': _$RPQuestionTypeEnumMap[instance.questionType]!,
+      'choices': instance.choices.map((e) => e.toJson()).toList(),
+      'answerStyle': _$RPChoiceAnswerStyleEnumMap[instance.answerStyle]!,
+    };
 
 const _$RPChoiceAnswerStyleEnumMap = {
   RPChoiceAnswerStyle.SingleChoice: 'SingleChoice',
@@ -139,80 +107,55 @@ const _$RPChoiceAnswerStyleEnumMap = {
 
 RPChoice _$RPChoiceFromJson(Map<String, dynamic> json) => RPChoice(
       text: json['text'] as String,
-      value: json['value'] as int,
-      isFreeText: json['is_free_text'] as bool? ?? false,
-      detailText: json['detail_text'] as String?,
+      value: (json['value'] as num).toInt(),
+      isFreeText: json['isFreeText'] as bool? ?? false,
+      detailText: json['detailText'] as String?,
     )..$type = json['__type'] as String?;
 
-Map<String, dynamic> _$RPChoiceToJson(RPChoice instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['text'] = instance.text;
-  val['value'] = instance.value;
-  writeNotNull('detail_text', instance.detailText);
-  val['is_free_text'] = instance.isFreeText;
-  return val;
-}
+Map<String, dynamic> _$RPChoiceToJson(RPChoice instance) => <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'text': instance.text,
+      'value': instance.value,
+      if (instance.detailText case final value?) 'detailText': value,
+      'isFreeText': instance.isFreeText,
+    };
 
 RPFormAnswerFormat _$RPFormAnswerFormatFromJson(Map<String, dynamic> json) =>
     RPFormAnswerFormat()
       ..$type = json['__type'] as String?
       ..questionType =
-          $enumDecode(_$RPQuestionTypeEnumMap, json['question_type']);
+          $enumDecode(_$RPQuestionTypeEnumMap, json['questionType']);
 
-Map<String, dynamic> _$RPFormAnswerFormatToJson(RPFormAnswerFormat instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['question_type'] = _$RPQuestionTypeEnumMap[instance.questionType]!;
-  return val;
-}
+Map<String, dynamic> _$RPFormAnswerFormatToJson(RPFormAnswerFormat instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'questionType': _$RPQuestionTypeEnumMap[instance.questionType]!,
+    };
 
 RPSliderAnswerFormat _$RPSliderAnswerFormatFromJson(
         Map<String, dynamic> json) =>
     RPSliderAnswerFormat(
-      minValue: (json['min_value'] as num).toDouble(),
-      maxValue: (json['max_value'] as num).toDouble(),
-      divisions: json['divisions'] as int,
+      minValue: (json['minValue'] as num).toDouble(),
+      maxValue: (json['maxValue'] as num).toDouble(),
+      divisions: (json['divisions'] as num).toInt(),
       prefix: json['prefix'] as String? ?? '',
       suffix: json['suffix'] as String? ?? '',
     )
       ..$type = json['__type'] as String?
       ..questionType =
-          $enumDecode(_$RPQuestionTypeEnumMap, json['question_type']);
+          $enumDecode(_$RPQuestionTypeEnumMap, json['questionType']);
 
 Map<String, dynamic> _$RPSliderAnswerFormatToJson(
-    RPSliderAnswerFormat instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['min_value'] = instance.minValue;
-  val['max_value'] = instance.maxValue;
-  val['divisions'] = instance.divisions;
-  writeNotNull('prefix', instance.prefix);
-  writeNotNull('suffix', instance.suffix);
-  val['question_type'] = _$RPQuestionTypeEnumMap[instance.questionType]!;
-  return val;
-}
+        RPSliderAnswerFormat instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'minValue': instance.minValue,
+      'maxValue': instance.maxValue,
+      'divisions': instance.divisions,
+      if (instance.prefix case final value?) 'prefix': value,
+      if (instance.suffix case final value?) 'suffix': value,
+      'questionType': _$RPQuestionTypeEnumMap[instance.questionType]!,
+    };
 
 RPImageChoiceAnswerFormat _$RPImageChoiceAnswerFormatFromJson(
         Map<String, dynamic> json) =>
@@ -223,75 +166,51 @@ RPImageChoiceAnswerFormat _$RPImageChoiceAnswerFormatFromJson(
     )
       ..$type = json['__type'] as String?
       ..questionType =
-          $enumDecode(_$RPQuestionTypeEnumMap, json['question_type']);
+          $enumDecode(_$RPQuestionTypeEnumMap, json['questionType']);
 
 Map<String, dynamic> _$RPImageChoiceAnswerFormatToJson(
-    RPImageChoiceAnswerFormat instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['choices'] = instance.choices;
-  val['question_type'] = _$RPQuestionTypeEnumMap[instance.questionType]!;
-  return val;
-}
+        RPImageChoiceAnswerFormat instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'choices': instance.choices.map((e) => e.toJson()).toList(),
+      'questionType': _$RPQuestionTypeEnumMap[instance.questionType]!,
+    };
 
 RPImageChoice _$RPImageChoiceFromJson(Map<String, dynamic> json) =>
     RPImageChoice(
-      imageUrl: json['image_url'] as String,
+      imageUrl: json['imageUrl'] as String,
       key: json['key'] as String?,
       value: json['value'],
       description: json['description'] as String,
     )..$type = json['__type'] as String?;
 
-Map<String, dynamic> _$RPImageChoiceToJson(RPImageChoice instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['image_url'] = instance.imageUrl;
-  writeNotNull('key', instance.key);
-  writeNotNull('value', instance.value);
-  val['description'] = instance.description;
-  return val;
-}
+Map<String, dynamic> _$RPImageChoiceToJson(RPImageChoice instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'imageUrl': instance.imageUrl,
+      if (instance.key case final value?) 'key': value,
+      if (instance.value case final value?) 'value': value,
+      'description': instance.description,
+    };
 
 RPDateTimeAnswerFormat _$RPDateTimeAnswerFormatFromJson(
         Map<String, dynamic> json) =>
     RPDateTimeAnswerFormat(
       dateTimeAnswerStyle: $enumDecode(
-          _$RPDateTimeAnswerStyleEnumMap, json['date_time_answer_style']),
+          _$RPDateTimeAnswerStyleEnumMap, json['dateTimeAnswerStyle']),
     )
       ..$type = json['__type'] as String?
       ..questionType =
-          $enumDecode(_$RPQuestionTypeEnumMap, json['question_type']);
+          $enumDecode(_$RPQuestionTypeEnumMap, json['questionType']);
 
 Map<String, dynamic> _$RPDateTimeAnswerFormatToJson(
-    RPDateTimeAnswerFormat instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['question_type'] = _$RPQuestionTypeEnumMap[instance.questionType]!;
-  val['date_time_answer_style'] =
-      _$RPDateTimeAnswerStyleEnumMap[instance.dateTimeAnswerStyle]!;
-  return val;
-}
+        RPDateTimeAnswerFormat instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'questionType': _$RPQuestionTypeEnumMap[instance.questionType]!,
+      'dateTimeAnswerStyle':
+          _$RPDateTimeAnswerStyleEnumMap[instance.dateTimeAnswerStyle]!,
+    };
 
 const _$RPDateTimeAnswerStyleEnumMap = {
   RPDateTimeAnswerStyle.DateAndTime: 'DateAndTime',
@@ -301,30 +220,22 @@ const _$RPDateTimeAnswerStyleEnumMap = {
 
 RPTextAnswerFormat _$RPTextAnswerFormatFromJson(Map<String, dynamic> json) =>
     RPTextAnswerFormat(
-      hintText: json['hint_text'] as String?,
-      autoFocus: json['auto_focus'] as bool? ?? false,
-      disableHelpers: json['disable_helpers'] as bool? ?? false,
+      hintText: json['hintText'] as String?,
+      autoFocus: json['autoFocus'] as bool? ?? false,
+      disableHelpers: json['disableHelpers'] as bool? ?? false,
     )
       ..$type = json['__type'] as String?
       ..questionType =
-          $enumDecode(_$RPQuestionTypeEnumMap, json['question_type']);
+          $enumDecode(_$RPQuestionTypeEnumMap, json['questionType']);
 
-Map<String, dynamic> _$RPTextAnswerFormatToJson(RPTextAnswerFormat instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  writeNotNull('hint_text', instance.hintText);
-  val['auto_focus'] = instance.autoFocus;
-  val['disable_helpers'] = instance.disableHelpers;
-  val['question_type'] = _$RPQuestionTypeEnumMap[instance.questionType]!;
-  return val;
-}
+Map<String, dynamic> _$RPTextAnswerFormatToJson(RPTextAnswerFormat instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      if (instance.hintText case final value?) 'hintText': value,
+      'autoFocus': instance.autoFocus,
+      'disableHelpers': instance.disableHelpers,
+      'questionType': _$RPQuestionTypeEnumMap[instance.questionType]!,
+    };
 
 RPConsentDocument _$RPConsentDocumentFromJson(Map<String, dynamic> json) =>
     RPConsentDocument(
@@ -338,21 +249,13 @@ RPConsentDocument _$RPConsentDocumentFromJson(Map<String, dynamic> json) =>
           .map((e) => RPConsentSignature.fromJson(e as Map<String, dynamic>))
           .toList();
 
-Map<String, dynamic> _$RPConsentDocumentToJson(RPConsentDocument instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['signatures'] = instance.signatures;
-  val['title'] = instance.title;
-  val['sections'] = instance.sections;
-  return val;
-}
+Map<String, dynamic> _$RPConsentDocumentToJson(RPConsentDocument instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'signatures': instance.signatures.map((e) => e.toJson()).toList(),
+      'title': instance.title,
+      'sections': instance.sections.map((e) => e.toJson()).toList(),
+    };
 
 RPConsentSection _$RPConsentSectionFromJson(Map<String, dynamic> json) =>
     RPConsentSection(
@@ -360,28 +263,21 @@ RPConsentSection _$RPConsentSectionFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String?,
       summary: json['summary'] as String?,
       content: json['content'] as String?,
-      dataTypes: (json['data_types'] as List<dynamic>?)
+      dataTypes: (json['dataTypes'] as List<dynamic>?)
           ?.map((e) => RPDataTypeSection.fromJson(e as Map<String, dynamic>))
           .toList(),
     )..$type = json['__type'] as String?;
 
-Map<String, dynamic> _$RPConsentSectionToJson(RPConsentSection instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['type'] = _$RPConsentSectionTypeEnumMap[instance.type]!;
-  val['title'] = instance.title;
-  writeNotNull('summary', instance.summary);
-  writeNotNull('content', instance.content);
-  writeNotNull('data_types', instance.dataTypes);
-  return val;
-}
+Map<String, dynamic> _$RPConsentSectionToJson(RPConsentSection instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'type': _$RPConsentSectionTypeEnumMap[instance.type]!,
+      'title': instance.title,
+      if (instance.summary case final value?) 'summary': value,
+      if (instance.content case final value?) 'content': value,
+      if (instance.dataTypes?.map((e) => e.toJson()).toList() case final value?)
+        'dataTypes': value,
+    };
 
 const _$RPConsentSectionTypeEnumMap = {
   RPConsentSectionType.Overview: 'Overview',
@@ -410,55 +306,42 @@ RPConsentSignature _$RPConsentSignatureFromJson(Map<String, dynamic> json) =>
     RPConsentSignature(
       identifier: json['identifier'] as String,
       title: json['title'] as String?,
-      requiresName: json['requires_name'] as bool? ?? true,
-      requiresSignatureImage: json['requires_signature_image'] as bool? ?? true,
+      requiresName: json['requiresName'] as bool? ?? true,
+      requiresSignatureImage: json['requiresSignatureImage'] as bool? ?? true,
     )..$type = json['__type'] as String?;
 
-Map<String, dynamic> _$RPConsentSignatureToJson(RPConsentSignature instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['identifier'] = instance.identifier;
-  writeNotNull('title', instance.title);
-  val['requires_name'] = instance.requiresName;
-  val['requires_signature_image'] = instance.requiresSignatureImage;
-  return val;
-}
+Map<String, dynamic> _$RPConsentSignatureToJson(RPConsentSignature instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'identifier': instance.identifier,
+      if (instance.title case final value?) 'title': value,
+      'requiresName': instance.requiresName,
+      'requiresSignatureImage': instance.requiresSignatureImage,
+    };
 
 RPVisualConsentStep _$RPVisualConsentStepFromJson(Map<String, dynamic> json) =>
     RPVisualConsentStep(
       identifier: json['identifier'] as String,
       consentDocument: RPConsentDocument.fromJson(
-          json['consent_document'] as Map<String, dynamic>),
+          json['consentDocument'] as Map<String, dynamic>),
     )
       ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
-      ..optional = json['optional'] as bool;
+      ..optional = json['optional'] as bool
+      ..footnote = json['footnote'] as String?;
 
-Map<String, dynamic> _$RPVisualConsentStepToJson(RPVisualConsentStep instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['identifier'] = instance.identifier;
-  val['title'] = instance.title;
-  writeNotNull('text', instance.text);
-  val['optional'] = instance.optional;
-  val['consent_document'] = instance.consentDocument;
-  return val;
-}
+Map<String, dynamic> _$RPVisualConsentStepToJson(
+        RPVisualConsentStep instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'identifier': instance.identifier,
+      'title': instance.title,
+      if (instance.text case final value?) 'text': value,
+      'optional': instance.optional,
+      if (instance.footnote case final value?) 'footnote': value,
+      'consentDocument': instance.consentDocument.toJson(),
+    };
 
 RPConsentReviewStep _$RPConsentReviewStepFromJson(Map<String, dynamic> json) =>
     RPConsentReviewStep(
@@ -466,161 +349,129 @@ RPConsentReviewStep _$RPConsentReviewStepFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String,
       text: json['text'] as String?,
       consentDocument: RPConsentDocument.fromJson(
-          json['consent_document'] as Map<String, dynamic>),
-      reasonForConsent: json['reason_for_consent'] as String?,
+          json['consentDocument'] as Map<String, dynamic>),
+      reasonForConsent: json['reasonForConsent'] as String?,
     )
       ..$type = json['__type'] as String?
-      ..optional = json['optional'] as bool;
+      ..optional = json['optional'] as bool
+      ..footnote = json['footnote'] as String?;
 
-Map<String, dynamic> _$RPConsentReviewStepToJson(RPConsentReviewStep instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['identifier'] = instance.identifier;
-  val['title'] = instance.title;
-  writeNotNull('text', instance.text);
-  val['optional'] = instance.optional;
-  val['consent_document'] = instance.consentDocument;
-  writeNotNull('reason_for_consent', instance.reasonForConsent);
-  return val;
-}
+Map<String, dynamic> _$RPConsentReviewStepToJson(
+        RPConsentReviewStep instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'identifier': instance.identifier,
+      'title': instance.title,
+      if (instance.text case final value?) 'text': value,
+      'optional': instance.optional,
+      if (instance.footnote case final value?) 'footnote': value,
+      'consentDocument': instance.consentDocument.toJson(),
+      if (instance.reasonForConsent case final value?)
+        'reasonForConsent': value,
+    };
 
 RPDataTypeSection _$RPDataTypeSectionFromJson(Map<String, dynamic> json) =>
     RPDataTypeSection(
-      dataName: json['data_name'] as String,
-      dataInformation: json['data_information'] as String,
+      dataName: json['dataName'] as String,
+      dataInformation: json['dataInformation'] as String,
     )..$type = json['__type'] as String?;
 
-Map<String, dynamic> _$RPDataTypeSectionToJson(RPDataTypeSection instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['data_name'] = instance.dataName;
-  val['data_information'] = instance.dataInformation;
-  return val;
-}
+Map<String, dynamic> _$RPDataTypeSectionToJson(RPDataTypeSection instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'dataName': instance.dataName,
+      'dataInformation': instance.dataInformation,
+    };
 
 RPStep _$RPStepFromJson(Map<String, dynamic> json) => RPStep(
       identifier: json['identifier'] as String,
       title: json['title'] as String,
       text: json['text'] as String?,
       optional: json['optional'] as bool? ?? false,
+      footnote: json['footnote'] as String?,
     )..$type = json['__type'] as String?;
 
-Map<String, dynamic> _$RPStepToJson(RPStep instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['identifier'] = instance.identifier;
-  val['title'] = instance.title;
-  writeNotNull('text', instance.text);
-  val['optional'] = instance.optional;
-  return val;
-}
+Map<String, dynamic> _$RPStepToJson(RPStep instance) => <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'identifier': instance.identifier,
+      'title': instance.title,
+      if (instance.text case final value?) 'text': value,
+      'optional': instance.optional,
+      if (instance.footnote case final value?) 'footnote': value,
+    };
 
 RPFormStep _$RPFormStepFromJson(Map<String, dynamic> json) => RPFormStep(
       identifier: json['identifier'] as String,
       title: json['title'] as String,
       optional: json['optional'] as bool? ?? false,
-      autoSkip: json['auto_skip'] as bool? ?? false,
+      autoSkip: json['autoSkip'] as bool? ?? false,
       timeout: json['timeout'] == null
           ? const Duration(seconds: 0)
-          : Duration(microseconds: json['timeout'] as int),
+          : Duration(microseconds: (json['timeout'] as num).toInt()),
       questions: (json['questions'] as List<dynamic>)
           .map((e) => RPQuestionStep.fromJson(e as Map<String, dynamic>))
           .toList(),
-      saveResultsOnAutoSkip:
-          json['save_results_on_auto_skip'] as bool? ?? false,
-      forceWait: json['force_wait'] as bool? ?? false,
+      saveResultsOnAutoSkip: json['saveResultsOnAutoSkip'] as bool? ?? false,
+      forceWait: json['forceWait'] as bool? ?? false,
+      footnote: json['footnote'] as String?,
     )
       ..$type = json['__type'] as String?
       ..text = json['text'] as String?
       ..answerFormat =
-          RPAnswerFormat.fromJson(json['answer_format'] as Map<String, dynamic>)
+          RPAnswerFormat.fromJson(json['answerFormat'] as Map<String, dynamic>)
       ..placeholder = json['placeholder'] as String?
-      ..autoFocus = json['auto_focus'] as bool;
+      ..autoFocus = json['autoFocus'] as bool;
 
-Map<String, dynamic> _$RPFormStepToJson(RPFormStep instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['identifier'] = instance.identifier;
-  val['title'] = instance.title;
-  writeNotNull('text', instance.text);
-  val['optional'] = instance.optional;
-  val['answer_format'] = instance.answerFormat;
-  writeNotNull('placeholder', instance.placeholder);
-  val['auto_skip'] = instance.autoSkip;
-  val['timeout'] = instance.timeout.inMicroseconds;
-  val['auto_focus'] = instance.autoFocus;
-  val['questions'] = instance.questions;
-  val['save_results_on_auto_skip'] = instance.saveResultsOnAutoSkip;
-  val['force_wait'] = instance.forceWait;
-  return val;
-}
+Map<String, dynamic> _$RPFormStepToJson(RPFormStep instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'identifier': instance.identifier,
+      'title': instance.title,
+      if (instance.text case final value?) 'text': value,
+      'optional': instance.optional,
+      if (instance.footnote case final value?) 'footnote': value,
+      'answerFormat': instance.answerFormat.toJson(),
+      if (instance.placeholder case final value?) 'placeholder': value,
+      'autoSkip': instance.autoSkip,
+      'timeout': instance.timeout.inMicroseconds,
+      'autoFocus': instance.autoFocus,
+      'questions': instance.questions.map((e) => e.toJson()).toList(),
+      'saveResultsOnAutoSkip': instance.saveResultsOnAutoSkip,
+      'forceWait': instance.forceWait,
+    };
 
 RPQuestionStep _$RPQuestionStepFromJson(Map<String, dynamic> json) =>
     RPQuestionStep(
       identifier: json['identifier'] as String,
       title: json['title'] as String,
       optional: json['optional'] as bool? ?? false,
-      answerFormat: RPAnswerFormat.fromJson(
-          json['answer_format'] as Map<String, dynamic>),
-      autoSkip: json['auto_skip'] as bool? ?? false,
+      answerFormat:
+          RPAnswerFormat.fromJson(json['answerFormat'] as Map<String, dynamic>),
+      autoSkip: json['autoSkip'] as bool? ?? false,
       timeout: json['timeout'] == null
           ? const Duration(seconds: 0)
-          : Duration(microseconds: json['timeout'] as int),
-      autoFocus: json['auto_focus'] as bool? ?? false,
+          : Duration(microseconds: (json['timeout'] as num).toInt()),
+      autoFocus: json['autoFocus'] as bool? ?? false,
+      footnote: json['footnote'] as String?,
     )
       ..$type = json['__type'] as String?
       ..text = json['text'] as String?
       ..placeholder = json['placeholder'] as String?;
 
-Map<String, dynamic> _$RPQuestionStepToJson(RPQuestionStep instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['identifier'] = instance.identifier;
-  val['title'] = instance.title;
-  writeNotNull('text', instance.text);
-  val['optional'] = instance.optional;
-  val['answer_format'] = instance.answerFormat;
-  writeNotNull('placeholder', instance.placeholder);
-  val['auto_skip'] = instance.autoSkip;
-  val['timeout'] = instance.timeout.inMicroseconds;
-  val['auto_focus'] = instance.autoFocus;
-  return val;
-}
+Map<String, dynamic> _$RPQuestionStepToJson(RPQuestionStep instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'identifier': instance.identifier,
+      'title': instance.title,
+      if (instance.text case final value?) 'text': value,
+      'optional': instance.optional,
+      if (instance.footnote case final value?) 'footnote': value,
+      'answerFormat': instance.answerFormat.toJson(),
+      if (instance.placeholder case final value?) 'placeholder': value,
+      'autoSkip': instance.autoSkip,
+      'timeout': instance.timeout.inMicroseconds,
+      'autoFocus': instance.autoFocus,
+    };
 
 RPInstructionStep _$RPInstructionStepFromJson(Map<String, dynamic> json) =>
     RPInstructionStep(
@@ -628,30 +479,22 @@ RPInstructionStep _$RPInstructionStepFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String,
       text: json['text'] as String?,
       optional: json['optional'] as bool? ?? false,
-      detailText: json['detail_text'] as String?,
+      detailText: json['detailText'] as String?,
+      imagePath: json['imagePath'] as String?,
       footnote: json['footnote'] as String?,
-      imagePath: json['image_path'] as String?,
     )..$type = json['__type'] as String?;
 
-Map<String, dynamic> _$RPInstructionStepToJson(RPInstructionStep instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['identifier'] = instance.identifier;
-  val['title'] = instance.title;
-  writeNotNull('text', instance.text);
-  val['optional'] = instance.optional;
-  writeNotNull('detail_text', instance.detailText);
-  writeNotNull('footnote', instance.footnote);
-  writeNotNull('image_path', instance.imagePath);
-  return val;
-}
+Map<String, dynamic> _$RPInstructionStepToJson(RPInstructionStep instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'identifier': instance.identifier,
+      'title': instance.title,
+      if (instance.text case final value?) 'text': value,
+      'optional': instance.optional,
+      if (instance.footnote case final value?) 'footnote': value,
+      if (instance.detailText case final value?) 'detailText': value,
+      if (instance.imagePath case final value?) 'imagePath': value,
+    };
 
 RPCompletionStep _$RPCompletionStepFromJson(Map<String, dynamic> json) =>
     RPCompletionStep(
@@ -659,112 +502,87 @@ RPCompletionStep _$RPCompletionStepFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String,
       text: json['text'] as String?,
       optional: json['optional'] as bool? ?? false,
-    )..$type = json['__type'] as String?;
+    )
+      ..$type = json['__type'] as String?
+      ..footnote = json['footnote'] as String?;
 
-Map<String, dynamic> _$RPCompletionStepToJson(RPCompletionStep instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['identifier'] = instance.identifier;
-  val['title'] = instance.title;
-  writeNotNull('text', instance.text);
-  val['optional'] = instance.optional;
-  return val;
-}
+Map<String, dynamic> _$RPCompletionStepToJson(RPCompletionStep instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'identifier': instance.identifier,
+      'title': instance.title,
+      if (instance.text case final value?) 'text': value,
+      'optional': instance.optional,
+      if (instance.footnote case final value?) 'footnote': value,
+    };
 
 RPActivityStep _$RPActivityStepFromJson(Map<String, dynamic> json) =>
     RPActivityStep(
       identifier: json['identifier'] as String,
-      includeInstructions: json['include_instructions'] as bool? ?? true,
-      includeResults: json['include_results'] as bool? ?? true,
+      includeInstructions: json['includeInstructions'] as bool? ?? true,
+      includeResults: json['includeResults'] as bool? ?? true,
     )
       ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
-      ..optional = json['optional'] as bool;
+      ..optional = json['optional'] as bool
+      ..footnote = json['footnote'] as String?;
 
-Map<String, dynamic> _$RPActivityStepToJson(RPActivityStep instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['identifier'] = instance.identifier;
-  val['title'] = instance.title;
-  writeNotNull('text', instance.text);
-  val['optional'] = instance.optional;
-  val['include_instructions'] = instance.includeInstructions;
-  val['include_results'] = instance.includeResults;
-  return val;
-}
+Map<String, dynamic> _$RPActivityStepToJson(RPActivityStep instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'identifier': instance.identifier,
+      'title': instance.title,
+      if (instance.text case final value?) 'text': value,
+      'optional': instance.optional,
+      if (instance.footnote case final value?) 'footnote': value,
+      'includeInstructions': instance.includeInstructions,
+      'includeResults': instance.includeResults,
+    };
 
 RPTimerStep _$RPTimerStepFromJson(Map<String, dynamic> json) => RPTimerStep(
       identifier: json['identifier'] as String,
       title: json['title'] as String,
       optional: json['optional'] as bool? ?? false,
-      timeout: Duration(microseconds: json['timeout'] as int),
-      playSound: json['play_sound'] as bool? ?? false,
-      autoSkip: json['auto_skip'] as bool? ?? false,
-      showTime: json['show_time'] as bool? ?? true,
+      timeout: Duration(microseconds: (json['timeout'] as num).toInt()),
+      playSound: json['playSound'] as bool? ?? false,
+      autoSkip: json['autoSkip'] as bool? ?? false,
+      showTime: json['showTime'] as bool? ?? true,
+      footnote: json['footnote'] as String?,
     )
       ..$type = json['__type'] as String?
       ..text = json['text'] as String?;
 
-Map<String, dynamic> _$RPTimerStepToJson(RPTimerStep instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['identifier'] = instance.identifier;
-  val['title'] = instance.title;
-  writeNotNull('text', instance.text);
-  val['optional'] = instance.optional;
-  val['timeout'] = instance.timeout.inMicroseconds;
-  val['play_sound'] = instance.playSound;
-  val['auto_skip'] = instance.autoSkip;
-  val['show_time'] = instance.showTime;
-  return val;
-}
+Map<String, dynamic> _$RPTimerStepToJson(RPTimerStep instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'identifier': instance.identifier,
+      'title': instance.title,
+      if (instance.text case final value?) 'text': value,
+      'optional': instance.optional,
+      if (instance.footnote case final value?) 'footnote': value,
+      'timeout': instance.timeout.inMicroseconds,
+      'playSound': instance.playSound,
+      'autoSkip': instance.autoSkip,
+      'showTime': instance.showTime,
+    };
 
 RPOrderedTask _$RPOrderedTaskFromJson(Map<String, dynamic> json) =>
     RPOrderedTask(
       identifier: json['identifier'] as String,
-      closeAfterFinished: json['close_after_finished'] as bool? ?? true,
+      closeAfterFinished: json['closeAfterFinished'] as bool? ?? true,
       steps: (json['steps'] as List<dynamic>)
           .map((e) => RPStep.fromJson(e as Map<String, dynamic>))
           .toList(),
     )..$type = json['__type'] as String?;
 
-Map<String, dynamic> _$RPOrderedTaskToJson(RPOrderedTask instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['identifier'] = instance.identifier;
-  val['close_after_finished'] = instance.closeAfterFinished;
-  val['steps'] = instance.steps;
-  return val;
-}
+Map<String, dynamic> _$RPOrderedTaskToJson(RPOrderedTask instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'identifier': instance.identifier,
+      'closeAfterFinished': instance.closeAfterFinished,
+      'steps': instance.steps.map((e) => e.toJson()).toList(),
+    };
 
 RPNavigableOrderedTask _$RPNavigableOrderedTaskFromJson(
         Map<String, dynamic> json) =>
@@ -773,349 +591,262 @@ RPNavigableOrderedTask _$RPNavigableOrderedTaskFromJson(
       steps: (json['steps'] as List<dynamic>)
           .map((e) => RPStep.fromJson(e as Map<String, dynamic>))
           .toList(),
-      closeAfterFinished: json['close_after_finished'] as bool? ?? true,
+      closeAfterFinished: json['closeAfterFinished'] as bool? ?? true,
     )
       ..$type = json['__type'] as String?
       ..stepNavigationRules =
-          (json['step_navigation_rules'] as Map<String, dynamic>).map(
+          (json['stepNavigationRules'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(
             k, RPStepNavigationRule.fromJson(e as Map<String, dynamic>)),
       );
 
 Map<String, dynamic> _$RPNavigableOrderedTaskToJson(
-    RPNavigableOrderedTask instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['identifier'] = instance.identifier;
-  val['close_after_finished'] = instance.closeAfterFinished;
-  val['steps'] = instance.steps;
-  val['step_navigation_rules'] = instance.stepNavigationRules;
-  return val;
-}
+        RPNavigableOrderedTask instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'identifier': instance.identifier,
+      'closeAfterFinished': instance.closeAfterFinished,
+      'steps': instance.steps.map((e) => e.toJson()).toList(),
+      'stepNavigationRules':
+          instance.stepNavigationRules.map((k, e) => MapEntry(k, e.toJson())),
+    };
 
 RPStepNavigationRule _$RPStepNavigationRuleFromJson(
         Map<String, dynamic> json) =>
     RPStepNavigationRule()..$type = json['__type'] as String?;
 
 Map<String, dynamic> _$RPStepNavigationRuleToJson(
-    RPStepNavigationRule instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  return val;
-}
+        RPStepNavigationRule instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+    };
 
 RPDirectStepNavigationRule _$RPDirectStepNavigationRuleFromJson(
         Map<String, dynamic> json) =>
     RPDirectStepNavigationRule(
-      destinationStepIdentifier: json['destination_step_identifier'] as String,
+      destinationStepIdentifier: json['destinationStepIdentifier'] as String,
     )..$type = json['__type'] as String?;
 
 Map<String, dynamic> _$RPDirectStepNavigationRuleToJson(
-    RPDirectStepNavigationRule instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['destination_step_identifier'] = instance.destinationStepIdentifier;
-  return val;
-}
+        RPDirectStepNavigationRule instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'destinationStepIdentifier': instance.destinationStepIdentifier,
+    };
 
 RPStepReorganizerRule _$RPStepReorganizerRuleFromJson(
         Map<String, dynamic> json) =>
     RPStepReorganizerRule(
-      reorderingMap: (json['reordering_map'] as Map<String, dynamic>).map(
+      reorderingMap: (json['reorderingMap'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(int.parse(k), e as String),
       ),
     )..$type = json['__type'] as String?;
 
 Map<String, dynamic> _$RPStepReorganizerRuleToJson(
-    RPStepReorganizerRule instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['reordering_map'] =
-      instance.reorderingMap.map((k, e) => MapEntry(k.toString(), e));
-  return val;
-}
+        RPStepReorganizerRule instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'reorderingMap':
+          instance.reorderingMap.map((k, e) => MapEntry(k.toString(), e)),
+    };
 
 RPStepJumpRule _$RPStepJumpRuleFromJson(Map<String, dynamic> json) =>
     RPStepJumpRule(
-      answerMap: (json['answer_map'] as Map<String, dynamic>).map(
+      answerMap: (json['answerMap'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(int.parse(k), e as String),
       ),
     )..$type = json['__type'] as String?;
 
-Map<String, dynamic> _$RPStepJumpRuleToJson(RPStepJumpRule instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['answer_map'] =
-      instance.answerMap.map((k, e) => MapEntry(k.toString(), e));
-  return val;
-}
+Map<String, dynamic> _$RPStepJumpRuleToJson(RPStepJumpRule instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'answerMap': instance.answerMap.map((k, e) => MapEntry(k.toString(), e)),
+    };
 
 RPTask _$RPTaskFromJson(Map<String, dynamic> json) => RPTask(
       identifier: json['identifier'] as String,
-      closeAfterFinished: json['close_after_finished'] as bool? ?? false,
+      closeAfterFinished: json['closeAfterFinished'] as bool? ?? false,
     )..$type = json['__type'] as String?;
 
-Map<String, dynamic> _$RPTaskToJson(RPTask instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('__type', instance.$type);
-  val['identifier'] = instance.identifier;
-  val['close_after_finished'] = instance.closeAfterFinished;
-  return val;
-}
+Map<String, dynamic> _$RPTaskToJson(RPTask instance) => <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'identifier': instance.identifier,
+      'closeAfterFinished': instance.closeAfterFinished,
+    };
 
 RPResult _$RPResultFromJson(Map<String, dynamic> json) => RPResult(
       identifier: json['identifier'] as String,
     )
-      ..startDate = json['start_date'] == null
+      ..$type = json['__type'] as String?
+      ..startDate = json['startDate'] == null
           ? null
-          : DateTime.parse(json['start_date'] as String)
-      ..endDate = json['end_date'] == null
+          : DateTime.parse(json['startDate'] as String)
+      ..endDate = json['endDate'] == null
           ? null
-          : DateTime.parse(json['end_date'] as String);
+          : DateTime.parse(json['endDate'] as String);
 
-Map<String, dynamic> _$RPResultToJson(RPResult instance) {
-  final val = <String, dynamic>{
-    'identifier': instance.identifier,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('start_date', instance.startDate?.toIso8601String());
-  writeNotNull('end_date', instance.endDate?.toIso8601String());
-  return val;
-}
+Map<String, dynamic> _$RPResultToJson(RPResult instance) => <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'identifier': instance.identifier,
+      if (instance.startDate?.toIso8601String() case final value?)
+        'startDate': value,
+      if (instance.endDate?.toIso8601String() case final value?)
+        'endDate': value,
+    };
 
 RPTaskResult _$RPTaskResultFromJson(Map<String, dynamic> json) => RPTaskResult(
       identifier: json['identifier'] as String,
     )
-      ..startDate = json['start_date'] == null
+      ..$type = json['__type'] as String?
+      ..startDate = json['startDate'] == null
           ? null
-          : DateTime.parse(json['start_date'] as String)
-      ..endDate = json['end_date'] == null
+          : DateTime.parse(json['startDate'] as String)
+      ..endDate = json['endDate'] == null
           ? null
-          : DateTime.parse(json['end_date'] as String)
+          : DateTime.parse(json['endDate'] as String)
       ..results = (json['results'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(k, RPResult.fromJson(e as Map<String, dynamic>)),
       );
 
-Map<String, dynamic> _$RPTaskResultToJson(RPTaskResult instance) {
-  final val = <String, dynamic>{
-    'identifier': instance.identifier,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('start_date', instance.startDate?.toIso8601String());
-  writeNotNull('end_date', instance.endDate?.toIso8601String());
-  val['results'] = instance.results;
-  return val;
-}
+Map<String, dynamic> _$RPTaskResultToJson(RPTaskResult instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'identifier': instance.identifier,
+      if (instance.startDate?.toIso8601String() case final value?)
+        'startDate': value,
+      if (instance.endDate?.toIso8601String() case final value?)
+        'endDate': value,
+      'results': instance.results.map((k, e) => MapEntry(k, e.toJson())),
+    };
 
 RPStepResult _$RPStepResultFromJson(Map<String, dynamic> json) => RPStepResult(
       identifier: json['identifier'] as String,
-      questionTitle: json['question_title'] as String,
-      answerFormat: RPAnswerFormat.fromJson(
-          json['answer_format'] as Map<String, dynamic>),
+      questionTitle: json['questionTitle'] as String,
+      answerFormat:
+          RPAnswerFormat.fromJson(json['answerFormat'] as Map<String, dynamic>),
     )
-      ..startDate = json['start_date'] == null
+      ..$type = json['__type'] as String?
+      ..startDate = json['startDate'] == null
           ? null
-          : DateTime.parse(json['start_date'] as String)
-      ..endDate = json['end_date'] == null
+          : DateTime.parse(json['startDate'] as String)
+      ..endDate = json['endDate'] == null
           ? null
-          : DateTime.parse(json['end_date'] as String)
+          : DateTime.parse(json['endDate'] as String)
       ..results = json['results'] as Map<String, dynamic>;
 
-Map<String, dynamic> _$RPStepResultToJson(RPStepResult instance) {
-  final val = <String, dynamic>{
-    'identifier': instance.identifier,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('start_date', instance.startDate?.toIso8601String());
-  writeNotNull('end_date', instance.endDate?.toIso8601String());
-  val['question_title'] = instance.questionTitle;
-  val['results'] = instance.results;
-  val['answer_format'] = instance.answerFormat;
-  return val;
-}
+Map<String, dynamic> _$RPStepResultToJson(RPStepResult instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'identifier': instance.identifier,
+      if (instance.startDate?.toIso8601String() case final value?)
+        'startDate': value,
+      if (instance.endDate?.toIso8601String() case final value?)
+        'endDate': value,
+      'questionTitle': instance.questionTitle,
+      'results': instance.results,
+      'answerFormat': instance.answerFormat.toJson(),
+    };
 
 RPConsentSignatureResult _$RPConsentSignatureResultFromJson(
         Map<String, dynamic> json) =>
     RPConsentSignatureResult(
       identifier: json['identifier'] as String,
       consentDocument: RPConsentDocument.fromJson(
-          json['consent_document'] as Map<String, dynamic>),
+          json['consentDocument'] as Map<String, dynamic>),
       signature: json['signature'] == null
           ? null
           : RPSignatureResult.fromJson(
               json['signature'] as Map<String, dynamic>),
     )
-      ..startDate = json['start_date'] == null
+      ..$type = json['__type'] as String?
+      ..startDate = json['startDate'] == null
           ? null
-          : DateTime.parse(json['start_date'] as String)
-      ..endDate = json['end_date'] == null
+          : DateTime.parse(json['startDate'] as String)
+      ..endDate = json['endDate'] == null
           ? null
-          : DateTime.parse(json['end_date'] as String)
-      ..userID = json['user_i_d'] as String?;
+          : DateTime.parse(json['endDate'] as String)
+      ..userId = json['userId'] as String?;
 
 Map<String, dynamic> _$RPConsentSignatureResultToJson(
-    RPConsentSignatureResult instance) {
-  final val = <String, dynamic>{
-    'identifier': instance.identifier,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('start_date', instance.startDate?.toIso8601String());
-  writeNotNull('end_date', instance.endDate?.toIso8601String());
-  val['consent_document'] = instance.consentDocument;
-  writeNotNull('signature', instance.signature);
-  writeNotNull('user_i_d', instance.userID);
-  return val;
-}
+        RPConsentSignatureResult instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'identifier': instance.identifier,
+      if (instance.startDate?.toIso8601String() case final value?)
+        'startDate': value,
+      if (instance.endDate?.toIso8601String() case final value?)
+        'endDate': value,
+      'consentDocument': instance.consentDocument.toJson(),
+      if (instance.signature?.toJson() case final value?) 'signature': value,
+      if (instance.userId case final value?) 'userId': value,
+    };
 
 RPSignatureResult _$RPSignatureResultFromJson(Map<String, dynamic> json) =>
     RPSignatureResult(
-      firstName: json['first_name'] as String?,
-      lastName: json['last_name'] as String?,
-      signatureImage: json['signature_image'] as String?,
-    );
+      firstName: json['firstName'] as String?,
+      lastName: json['lastName'] as String?,
+      signatureImage: json['signatureImage'] as String?,
+    )..$type = json['__type'] as String?;
 
-Map<String, dynamic> _$RPSignatureResultToJson(RPSignatureResult instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('first_name', instance.firstName);
-  writeNotNull('last_name', instance.lastName);
-  writeNotNull('signature_image', instance.signatureImage);
-  return val;
-}
+Map<String, dynamic> _$RPSignatureResultToJson(RPSignatureResult instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      if (instance.firstName case final value?) 'firstName': value,
+      if (instance.lastName case final value?) 'lastName': value,
+      if (instance.signatureImage case final value?) 'signatureImage': value,
+    };
 
 RPNoResult _$RPNoResultFromJson(Map<String, dynamic> json) => RPNoResult(
       identifier: json['identifier'] as String,
     )
-      ..startDate = json['start_date'] == null
+      ..$type = json['__type'] as String?
+      ..startDate = json['startDate'] == null
           ? null
-          : DateTime.parse(json['start_date'] as String)
-      ..endDate = json['end_date'] == null
+          : DateTime.parse(json['startDate'] as String)
+      ..endDate = json['endDate'] == null
           ? null
-          : DateTime.parse(json['end_date'] as String);
+          : DateTime.parse(json['endDate'] as String);
 
-Map<String, dynamic> _$RPNoResultToJson(RPNoResult instance) {
-  final val = <String, dynamic>{
-    'identifier': instance.identifier,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('start_date', instance.startDate?.toIso8601String());
-  writeNotNull('end_date', instance.endDate?.toIso8601String());
-  return val;
-}
+Map<String, dynamic> _$RPNoResultToJson(RPNoResult instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'identifier': instance.identifier,
+      if (instance.startDate?.toIso8601String() case final value?)
+        'startDate': value,
+      if (instance.endDate?.toIso8601String() case final value?)
+        'endDate': value,
+    };
 
 RPActivityResult _$RPActivityResultFromJson(Map<String, dynamic> json) =>
     RPActivityResult(
       identifier: json['identifier'] as String,
     )
-      ..startDate = json['start_date'] == null
+      ..$type = json['__type'] as String?
+      ..startDate = json['startDate'] == null
           ? null
-          : DateTime.parse(json['start_date'] as String)
-      ..endDate = json['end_date'] == null
+          : DateTime.parse(json['startDate'] as String)
+      ..endDate = json['endDate'] == null
           ? null
-          : DateTime.parse(json['end_date'] as String)
+          : DateTime.parse(json['endDate'] as String)
       ..results = json['results'] as Map<String, dynamic>
       ..stepTimes =
-          StepTimes.fromJson(json['step_times'] as Map<String, dynamic>)
+          StepTimes.fromJson(json['stepTimes'] as Map<String, dynamic>)
       ..interactions = (json['interactions'] as List<dynamic>)
           .map((e) => Interaction.fromJson(e as Map<String, dynamic>))
           .toList();
 
-Map<String, dynamic> _$RPActivityResultToJson(RPActivityResult instance) {
-  final val = <String, dynamic>{
-    'identifier': instance.identifier,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('start_date', instance.startDate?.toIso8601String());
-  writeNotNull('end_date', instance.endDate?.toIso8601String());
-  val['results'] = instance.results;
-  val['step_times'] = instance.stepTimes;
-  val['interactions'] = instance.interactions;
-  return val;
-}
+Map<String, dynamic> _$RPActivityResultToJson(RPActivityResult instance) =>
+    <String, dynamic>{
+      if (instance.$type case final value?) '__type': value,
+      'identifier': instance.identifier,
+      if (instance.startDate?.toIso8601String() case final value?)
+        'startDate': value,
+      if (instance.endDate?.toIso8601String() case final value?)
+        'endDate': value,
+      'results': instance.results,
+      'stepTimes': instance.stepTimes.toJson(),
+      'interactions': instance.interactions.map((e) => e.toJson()).toList(),
+    };
 
 Interaction _$InteractionFromJson(Map<String, dynamic> json) => Interaction(
       DateTime.parse(json['time'] as String),
@@ -1155,23 +886,19 @@ StepTimes _$StepTimesFromJson(Map<String, dynamic> json) => StepTimes()
       ? null
       : DateTime.parse(json['results_closed'] as String);
 
-Map<String, dynamic> _$StepTimesToJson(StepTimes instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull(
-      'instruction_started', instance.instructionStarted?.toIso8601String());
-  writeNotNull(
-      'instruction_ended', instance.instructionEnded?.toIso8601String());
-  writeNotNull('test_shown', instance.testShown?.toIso8601String());
-  writeNotNull('test_started', instance.testStarted?.toIso8601String());
-  writeNotNull('test_ended', instance.testEnded?.toIso8601String());
-  writeNotNull('results_shown', instance.resultsShown?.toIso8601String());
-  writeNotNull('results_closed', instance.resultsClosed?.toIso8601String());
-  return val;
-}
+Map<String, dynamic> _$StepTimesToJson(StepTimes instance) => <String, dynamic>{
+      if (instance.instructionStarted?.toIso8601String() case final value?)
+        'instruction_started': value,
+      if (instance.instructionEnded?.toIso8601String() case final value?)
+        'instruction_ended': value,
+      if (instance.testShown?.toIso8601String() case final value?)
+        'test_shown': value,
+      if (instance.testStarted?.toIso8601String() case final value?)
+        'test_started': value,
+      if (instance.testEnded?.toIso8601String() case final value?)
+        'test_ended': value,
+      if (instance.resultsShown?.toIso8601String() case final value?)
+        'results_shown': value,
+      if (instance.resultsClosed?.toIso8601String() case final value?)
+        'results_closed': value,
+    };

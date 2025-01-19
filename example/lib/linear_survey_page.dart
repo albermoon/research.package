@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:research_package/research_package.dart';
-import 'research_package_objects/linear_survey_objects.dart';
-import 'dart:convert';
+part of 'main.dart';
 
 class LinearSurveyPage extends StatelessWidget {
+  const LinearSurveyPage({super.key});
+
   String _encode(Object object) =>
       const JsonEncoder.withIndent(' ').convert(object);
 
@@ -14,14 +13,14 @@ class LinearSurveyPage extends StatelessWidget {
 
   void resultCallback(RPTaskResult result) {
     // Do anything with the final result
-    print('FINAL RESULT:');
+    print('FINAL RESULT SUBMITTED:');
     printWrapped(_encode(result));
   }
 
-  void cancelCallBack(RPTaskResult result) {
+  void cancelCallBack(RPTaskResult? result) {
     // Do anything with the result at the moment of the cancellation
-    print('RESULT SO FAR:');
-    printWrapped(_encode(result));
+    print('RESULT SO FAR BEFORE CANCELED:');
+    printWrapped(_encode(result ?? 'No Result'));
   }
 
   @override
@@ -29,12 +28,14 @@ class LinearSurveyPage extends StatelessWidget {
     return RPUITask(
       task: linearSurveyTask,
       onSubmit: resultCallback,
-      onCancel: (RPTaskResult? result) {
-        if (result == null) {
-          print("No result");
-        } else
-          cancelCallBack(result);
-      },
+      onCancel: cancelCallBack,
+      // onCancel: (RPTaskResult? result) {
+      //   if (result == null) {
+      //     print("No result");
+      //   } else {
+      //     cancelCallBack(result);
+      //   }
+      // },
     );
   }
 }
