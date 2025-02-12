@@ -253,8 +253,7 @@ class RPUIFormStepState extends State<RPUIFormStep> {
               padding: const EdgeInsets.all(8.0),
               child: TextButton(
                 onPressed: () => skipQuestion(),
-                child: Text(locale?.translate("Skip these questions") ??
-                    "Skip these questions"),
+                child: Text(locale!.translate("skip_this_question")),
               ),
             )
           : Container();
