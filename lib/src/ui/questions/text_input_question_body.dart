@@ -28,61 +28,42 @@ class RPUITextInputQuestionBodyState extends State<RPUITextInputQuestionBody>
   }
 
   @override
-Widget build(BuildContext context) {
-  RPLocalizations? locale = RPLocalizations.of(context);
-  super.build(context);
-  
-  return LayoutBuilder(
-    builder: (context, constraints) {
-      // constraints.maxHeight nos da la altura máxima disponible del padre
-      final parentHeight = constraints.maxHeight;
-      const lineHeight = 24.0;
-      final maxHeight = parentHeight * 0.4; // 40% de la altura disponible
-      
-      return Container(
-        constraints: BoxConstraints(
-          maxHeight: maxHeight,
-          minHeight: lineHeight * 2,
-        ),
-        child: TextField(
-          maxLines: 10,
-          onChanged: checkInput,
-          decoration: InputDecoration(
-            hintText: (widget.answerFormat.hintText != null)
-                ? (locale?.translate(widget.answerFormat.hintText!) ??
-                    widget.answerFormat.hintText)
-                : widget.answerFormat.hintText,
-            border: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: (CupertinoTheme.of(context).primaryColor ==
-                        CupertinoColors.activeBlue)
-                    ? Theme.of(context).primaryColor
-                    : CupertinoTheme.of(context).primaryColor,
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: (CupertinoTheme.of(context).primaryColor ==
-                        CupertinoColors.activeBlue)
-                    ? Theme.of(context).primaryColor
-                    : CupertinoTheme.of(context).primaryColor,
-              ),
-            ),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 12,
-            ),
+  Widget build(BuildContext context) {
+    RPLocalizations? locale = RPLocalizations.of(context);
+
+    super.build(context);
+    return TextField(
+      maxLines: 6,
+      onChanged: checkInput,
+      decoration: InputDecoration(
+        hintText: (widget.answerFormat.hintText != null)
+            ? (locale?.translate(widget.answerFormat.hintText!) ??
+                widget.answerFormat.hintText)
+            : widget.answerFormat.hintText,
+        border: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: (CupertinoTheme.of(context).primaryColor ==
+                    CupertinoColors.activeBlue)
+                ? Theme.of(context).primaryColor
+                : CupertinoTheme.of(context).primaryColor,
           ),
-          controller: _controller,
-          autofocus: widget.answerFormat.autoFocus,
-          keyboardType: TextInputType.text,
-          autocorrect: widget.answerFormat.disableHelpers ? false : true,
-          enableSuggestions: widget.answerFormat.disableHelpers ? false : true,
         ),
-      );
-    },
-  );
-}
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: (CupertinoTheme.of(context).primaryColor ==
+                    CupertinoColors.activeBlue)
+                ? Theme.of(context).primaryColor
+                : CupertinoTheme.of(context).primaryColor,
+          ),
+        ),
+      ),
+      controller: _controller,
+      autofocus: widget.answerFormat.autoFocus,
+      keyboardType: TextInputType.text,
+      autocorrect: widget.answerFormat.disableHelpers ? false : true,
+      enableSuggestions: widget.answerFormat.disableHelpers ? false : true,
+    );
+  }
 
   @override
   bool get wantKeepAlive => true;
