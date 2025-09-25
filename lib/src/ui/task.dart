@@ -240,20 +240,28 @@ class RPUITaskState extends State<RPUITask> with CanSaveResult {
 
   Widget _carouselBar(RPLocalizations? locale) {
     return SizedBox(
-      height: 16,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          // Carousel indicator
-          (!navigableTask)
-              ? Text(
-                  '${_currentStepIndex + 1} ${locale?.translate('of') ?? 'of'} ${widget.task.steps.length}',
-                  style: Theme.of(context).appBarTheme.titleTextStyle,
-                  textAlign: TextAlign.center,
-                )
-              : Container(),
-        ],
-      ),
+      height: 5,
+      child: (!navigableTask)
+          ? Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              width: double.infinity,
+              height: 4,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(2),
+                color: Theme.of(context).dividerColor.withOpacity(0.3),
+              ),
+              child: FractionallySizedBox(
+                alignment: Alignment.centerLeft,
+                widthFactor: (_currentStepIndex + 1) / widget.task.steps.length,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(2),
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+              ),
+            )
+          : SizedBox.shrink(),
     );
   }
 
@@ -272,8 +280,9 @@ class RPUITaskState extends State<RPUITask> with CanSaveResult {
         resizeToAvoidBottomInset: true,
         body: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              SizedBox(height: 6),
               _carouselBar(locale),
               // Body
               Expanded(
@@ -289,7 +298,7 @@ class RPUITaskState extends State<RPUITask> with CanSaveResult {
               // Bottom navigation
               if (![RPCompletionStep, RPVisualConsentStep, RPConsentReviewStep]
                   .contains(_currentStep.runtimeType))
-                Padding( padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+                Padding( padding: const EdgeInsets.only(left: 15, right: 15, bottom: 6),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
