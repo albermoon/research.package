@@ -11,10 +11,15 @@ RPOrderedTask get linearSurveyTask {
     RPChoice(text: "timeChoice0", value: 0), // "At no time"
   ];
 
-  final joyfulActivities = [
-    RPChoice(text: "Your input", value: 6, isFreeText: true),
-    RPChoice(
-        text: "Jogging", value: 5, detailText: "Running in a moderate pace"),
+  List<RPChoice> joyfulActivities = [
+    RPChoice(text: "Playing games", value: 7),
+    RPChoice(text: "Playing games", value: 8),
+    RPChoice(text: "Playing games", value: 9),
+    RPChoice(text: "Playing games", value: 10),
+    RPChoice(text: "Playing games", value: 11),
+    RPChoice(text: "Playing games", value: 16),
+    RPChoice(text: "Playing games", value: 16),
+    RPChoice(text: "Jogging", value: 5),
     RPChoice(text: "Playing an instrument", value: 4),
     RPChoice(text: "Family and friends", value: 3),
     RPChoice(text: "Doing sports", value: 2),
@@ -258,7 +263,6 @@ RPOrderedTask get linearSurveyTask {
       linearInstructionStep,
       // timerStep1,
       // formStep,
-      timerStep2,
       smokingQuestionStep,
       insulinStep,
       wakeUpStep,

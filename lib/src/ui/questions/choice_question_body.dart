@@ -114,11 +114,12 @@ class RPUIChoiceQuestionBodyState extends State<RPUIChoiceQuestionBody>
           ),
         ),
         // Opciones con diseño fluido
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: widget.answerFormat.choices.length,
-          itemBuilder: _choiceCellBuilder,
-          physics: const NeverScrollableScrollPhysics(),
+        Expanded(
+          child: ListView.builder(
+            itemCount: widget.answerFormat.choices.length,
+            itemBuilder: _choiceCellBuilder,
+            physics: const AlwaysScrollableScrollPhysics(),
+          ),
         ),
       ],
     );

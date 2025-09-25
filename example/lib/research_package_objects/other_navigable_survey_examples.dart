@@ -27,7 +27,13 @@ RPOrderedTask get emotionalDistress {
   ];
 
   List<RPChoice> joyfulActivities = [
-    RPChoice(text: "Playing games", value: 6),
+    RPChoice(text: "Playing games", value: 7),
+    RPChoice(text: "Playing games", value: 8),
+    RPChoice(text: "Playing games", value: 9),
+    RPChoice(text: "Playing games", value: 10),
+    RPChoice(text: "Playing games", value: 11),
+    RPChoice(text: "Playing games", value: 16),
+    RPChoice(text: "Playing games", value: 16),
     RPChoice(text: "Jogging", value: 5),
     RPChoice(text: "Playing an instrument", value: 4),
     RPChoice(text: "Family and friends", value: 3),
