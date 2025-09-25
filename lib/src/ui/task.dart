@@ -240,9 +240,9 @@ class RPUITaskState extends State<RPUITask> with CanSaveResult {
 
   Widget _carouselBar(RPLocalizations? locale) {
     return SizedBox(
-      height: 22,
+      height: 16,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           // Carousel indicator
           (!navigableTask)
@@ -274,10 +274,7 @@ class RPUITaskState extends State<RPUITask> with CanSaveResult {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(height:3),
               _carouselBar(locale),
-              SizedBox(height:3),
-
               // Body
               Expanded(
                 child: PageView.builder(
@@ -292,9 +289,7 @@ class RPUITaskState extends State<RPUITask> with CanSaveResult {
               // Bottom navigation
               if (![RPCompletionStep, RPVisualConsentStep, RPConsentReviewStep]
                   .contains(_currentStep.runtimeType))
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+                Padding( padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -365,8 +360,7 @@ class RPUITaskState extends State<RPUITask> with CanSaveResult {
     RPLocalizations locale,
     RPTaskResult taskResult,
   ) {
-    RPTaskResult translatedTaskResult =
-        RPTaskResult(identifier: taskResult.identifier);
+    RPTaskResult translatedTaskResult = RPTaskResult(identifier: taskResult.identifier);
     // For each step result in the task
     for (MapEntry<String, RPResult> mapEntry in taskResult.results.entries) {
       if (mapEntry.value is RPStepResult) {
