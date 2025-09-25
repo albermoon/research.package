@@ -22,6 +22,11 @@ class RPUISliderQuestionBodyState extends State<RPUISliderQuestionBody>
   Widget build(BuildContext context) {
     super.build(context);
     RPLocalizations? locale = RPLocalizations.of(context);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final isTablet = screenWidth > 600;
+    final isSmallScreen = screenHeight < 600;
+    
     String text = "";
     // prefix
     text += (widget.answerFormat.prefix != null)
@@ -37,7 +42,7 @@ class RPUISliderQuestionBodyState extends State<RPUISliderQuestionBody>
         : "";
     
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: EdgeInsets.all(isTablet ? 32 : (isSmallScreen ? 16 : 24)),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -48,9 +53,12 @@ class RPUISliderQuestionBodyState extends State<RPUISliderQuestionBody>
       ),
       child: Column(
         children: <Widget>[
-          // Valor actual simple
+          // Valor actual responsive
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            padding: EdgeInsets.symmetric(
+              horizontal: isTablet ? 24 : 20, 
+              vertical: isSmallScreen ? 8 : 12,
+            ),
             decoration: BoxDecoration(
               color: Colors.grey[100],
               borderRadius: BorderRadius.circular(20),
@@ -58,13 +66,13 @@ class RPUISliderQuestionBodyState extends State<RPUISliderQuestionBody>
             child: Text(
               text,
               style: TextStyle(
-                fontSize: 20,
+                fontSize: isTablet ? 24 : (isSmallScreen ? 18 : 20),
                 fontWeight: FontWeight.bold,
                 color: Colors.grey[800],
               ),
             ),
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: isSmallScreen ? 8 : 10),
           // Slider con colores del tema
           Slider(
             value: value ?? widget.answerFormat.minValue,
@@ -78,7 +86,7 @@ class RPUISliderQuestionBodyState extends State<RPUISliderQuestionBody>
             max: widget.answerFormat.maxValue,
             divisions: widget.answerFormat.divisions,
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: isSmallScreen ? 12 : 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -86,7 +94,7 @@ class RPUISliderQuestionBodyState extends State<RPUISliderQuestionBody>
                 widget.answerFormat.minValue.toString(),
                 style: TextStyle(
                   color: Colors.grey[600],
-                  fontSize: 14,
+                  fontSize: isTablet ? 16 : (isSmallScreen ? 12 : 14),
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -94,7 +102,7 @@ class RPUISliderQuestionBodyState extends State<RPUISliderQuestionBody>
                 widget.answerFormat.maxValue.toString(),
                 style: TextStyle(
                   color: Colors.grey[600],
-                  fontSize: 14,
+                  fontSize: isTablet ? 16 : (isSmallScreen ? 12 : 14),
                   fontWeight: FontWeight.w500,
                 ),
               ),

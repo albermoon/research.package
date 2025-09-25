@@ -129,6 +129,11 @@ class RPUIQuestionStepState extends State<RPUIQuestionStep> with CanSaveResult {
   @override
   Widget build(BuildContext context) {
     RPLocalizations? locale = RPLocalizations.of(context);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final isTablet = screenWidth > 600;
+    final isSmallScreen = screenHeight < 600;
+    
     return Scaffold(
       backgroundColor: Colors.grey[50],
       body: SafeArea(
@@ -136,62 +141,59 @@ class RPUIQuestionStepState extends State<RPUIQuestionStep> with CanSaveResult {
           children: [
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.fromLTRB(24, 20, 24, 16),
+              padding: EdgeInsets.fromLTRB(
+                isTablet ? 32 : 20,
+                isSmallScreen ? 12 : 20,
+                isTablet ? 32 : 20,
+                isSmallScreen ? 12 : 16,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     locale?.translate(widget.step.title) ?? widget.step.title,
-                    style: const TextStyle(
-                      fontSize: 28,
+                    style: TextStyle(
+                      fontSize: isTablet ? 32 : (isSmallScreen ? 24 : 28),
                       fontWeight: FontWeight.bold,
-                      color: Color(0xff2C3E50),
+                      color: const Color(0xff2C3E50),
                       height: 1.2,
                     ),
-                  ),
-                  // Badge opcional minimalista
-                  if (widget.step.optional) ...[
-                    const SizedBox(height: 8),
-                    Text(
-                      "Opcional",
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                  ],
+                  )
                 ],
               ),
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                padding: EdgeInsets.symmetric(
+                  horizontal: isTablet ? 32 : 20,
+                ),
                 child: Column(
                   children: [
                     Expanded(
                       child: stepBody(widget.step.answerFormat),
                     ),
                     if (widget.step.optional) ...[
-                      const SizedBox(height: 24),
+                      SizedBox(height: isSmallScreen ? 2 : 4),
                       TextButton.icon(
                         onPressed: () => skipQuestion(),
-                        icon: const Icon(Icons.skip_next, size: 18),
-                        label: const Text(
+                        icon: Icon(Icons.skip_next, size: isTablet ? 20 : 18),
+                        label: Text(
                           "Saltar esta pregunta",
-                          style: TextStyle(fontSize: 14),
+                          style: TextStyle(fontSize: isTablet ? 16 : 14),
                         ),
                         style: TextButton.styleFrom(
                           foregroundColor: Colors.grey[600],
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: isTablet ? 20 : 16, 
+                            vertical: isSmallScreen ? 6 : 8,
+                          ),
                         ),
                       ),
                     ],
                     if (widget.step.footnote != null) ...[
-                      const SizedBox(height: 16),
+                      SizedBox(height: isSmallScreen ? 4 : 6),
                       Container(
-                        padding: const EdgeInsets.all(16),
+                        padding: EdgeInsets.all(isTablet ? 20 : 16),
                         decoration: BoxDecoration(
                           color: Colors.grey[100],
                           borderRadius: BorderRadius.circular(12),
@@ -201,15 +203,15 @@ class RPUIQuestionStepState extends State<RPUIQuestionStep> with CanSaveResult {
                             Icon(
                               Icons.info_outline,
                               color: Colors.grey[600],
-                              size: 16,
+                              size: isTablet ? 18 : 16,
                             ),
-                            const SizedBox(width: 8),
+                            SizedBox(width: isTablet ? 12 : 8),
                             Expanded(
                               child: Text(
                                 locale?.translate(widget.step.footnote!) ?? widget.step.footnote!,
                                 style: TextStyle(
                                   color: Colors.grey[700],
-                                  fontSize: 13,
+                                  fontSize: isTablet ? 15 : 13,
                                   fontStyle: FontStyle.italic,
                                   height: 1.4,
                                 ),
@@ -219,7 +221,7 @@ class RPUIQuestionStepState extends State<RPUIQuestionStep> with CanSaveResult {
                         ),
                       ),
                     ],
-                    const SizedBox(height: 10),
+                    SizedBox(height: isSmallScreen ? 8 : 10),
                   ],
                 ),
               ),

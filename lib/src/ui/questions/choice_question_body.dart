@@ -77,13 +77,18 @@ class RPUIChoiceQuestionBodyState extends State<RPUIChoiceQuestionBody>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final isTablet = screenWidth > 600;
+    final isSmallScreen = screenHeight < 600;
+    
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        // Instrucciones minimalistas sin fondo
+        // Instrucciones responsive
         Container(
-          margin: const EdgeInsets.only(bottom: 16),
+          margin: EdgeInsets.only(bottom: isSmallScreen ? 12 : 16),
           child: Row(
             children: [
               Icon(
@@ -91,16 +96,16 @@ class RPUIChoiceQuestionBodyState extends State<RPUIChoiceQuestionBody>
                     ? Icons.checklist_rtl
                     : Icons.radio_button_checked,
                 color: Colors.grey[600],
-                size: 18,
+                size: isTablet ? 20 : 18,
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: isTablet ? 12 : 8),
               Text(
                 widget.answerFormat.answerStyle == RPChoiceAnswerStyle.MultipleChoice
                     ? "Selección múltiple"
                     : "Selección única",
                 style: TextStyle(
                   color: Colors.grey[600],
-                  fontSize: 14,
+                  fontSize: isTablet ? 16 : (isSmallScreen ? 12 : 14),
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -158,9 +163,13 @@ class _ChoiceButtonState extends State<_ChoiceButton> {
   Widget build(BuildContext context) {
     grpChoice = widget.selected ? widget.choice : null;
     RPLocalizations? locale = RPLocalizations.of(context);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final isTablet = screenWidth > 600;
+    final isSmallScreen = screenHeight < 600;
     
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: EdgeInsets.only(bottom: isSmallScreen ? 8 : 12),
       child: Material(
         elevation: widget.selected ? 2 : 0,
         borderRadius: BorderRadius.circular(12),
@@ -169,7 +178,7 @@ class _ChoiceButtonState extends State<_ChoiceButton> {
           onTap: () => widget.selectedCallBack(widget.choice),
           borderRadius: BorderRadius.circular(12),
           child: Container(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(isTablet ? 20 : (isSmallScreen ? 12 : 16)),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
@@ -179,10 +188,10 @@ class _ChoiceButtonState extends State<_ChoiceButton> {
             ),
             child: Row(
               children: [
-                // Indicador de selección simple
+                // Indicador de selección responsive
                 Container(
-                  width: 24,
-                  height: 24,
+                  width: isTablet ? 28 : (isSmallScreen ? 20 : 24),
+                  height: isTablet ? 28 : (isSmallScreen ? 20 : 24),
                   decoration: BoxDecoration(
                     shape: widget.answerStyle == RPChoiceAnswerStyle.SingleChoice 
                         ? BoxShape.circle 
@@ -202,12 +211,12 @@ class _ChoiceButtonState extends State<_ChoiceButton> {
                               ? Icons.check 
                               : Icons.check,
                           color: Colors.white,
-                          size: 16,
+                          size: isTablet ? 18 : (isSmallScreen ? 14 : 16),
                         )
                       : null,
                 ),
-                const SizedBox(width: 16),
-                // Contenido de la opción
+                SizedBox(width: isTablet ? 20 : (isSmallScreen ? 12 : 16)),
+                // Contenido de la opción responsive
                 Expanded(
                   child: widget.choice.isFreeText
                       ? TextField(
@@ -219,13 +228,13 @@ class _ChoiceButtonState extends State<_ChoiceButton> {
                             contentPadding: EdgeInsets.zero,
                             hintStyle: TextStyle(
                               color: Colors.grey[500],
-                              fontSize: 16,
+                              fontSize: isTablet ? 18 : (isSmallScreen ? 14 : 16),
                             ),
                           ),
                           style: TextStyle(
                             color: Colors.grey[700],
                             fontWeight: widget.selected ? FontWeight.w600 : FontWeight.normal,
-                            fontSize: 16,
+                            fontSize: isTablet ? 18 : (isSmallScreen ? 14 : 16),
                           ),
                         )
                       : Text(
@@ -234,13 +243,13 @@ class _ChoiceButtonState extends State<_ChoiceButton> {
                           style: TextStyle(
                             color: Colors.grey[700],
                             fontWeight: widget.selected ? FontWeight.w600 : FontWeight.normal,
-                            fontSize: 16,
+                            fontSize: isTablet ? 18 : (isSmallScreen ? 14 : 16),
                             height: 1.3,
                           ),
                           softWrap: true,
                         ),
                 ),
-                // Botón de información simple
+                // Botón de información responsive
                 if (widget.choice.detailText != null)
                   IconButton(
                     onPressed: () {
@@ -256,7 +265,7 @@ class _ChoiceButtonState extends State<_ChoiceButton> {
                     icon: Icon(
                       Icons.info_outline,
                       color: Colors.grey[600],
-                      size: 20,
+                      size: isTablet ? 24 : (isSmallScreen ? 18 : 20),
                     ),
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
