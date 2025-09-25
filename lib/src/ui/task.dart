@@ -240,40 +240,18 @@ class RPUITaskState extends State<RPUITask> with CanSaveResult {
 
   Widget _carouselBar(RPLocalizations? locale) {
     return SizedBox(
-      height: AppBar().preferredSize.height,
+      height: 22,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Spacer
-          Expanded(
-            flex: 1,
-            child: Container(),
-          ),
           // Carousel indicator
-          Expanded(
-            flex: 2,
-            child: (!navigableTask)
-                ? Text(
-                    '${_currentStepIndex + 1} ${locale?.translate('of') ?? 'of'} ${widget.task.steps.length}',
-                    style: Theme.of(context).appBarTheme.titleTextStyle,
-                    textAlign: TextAlign.center,
-                  )
-                : Container(),
-          ),
-          // Close button 2
-          // Expanded(
-          //   flex: 1,
-          //   child: IconButton(
-          //     icon: Icon(
-          //       Icons.highlight_off,
-          //       color: ((CupertinoTheme.of(context).primaryColor ==
-          //               CupertinoColors.activeBlue)
-          //           ? Theme.of(context).primaryColor
-          //           : CupertinoTheme.of(context).primaryColor),
-          //     ),
-          //     onPressed: () => blocTask.sendStatus(RPStepStatus.Canceled),
-          //   ),
-          // ),
+          (!navigableTask)
+              ? Text(
+                  '${_currentStepIndex + 1} ${locale?.translate('of') ?? 'of'} ${widget.task.steps.length}',
+                  style: Theme.of(context).appBarTheme.titleTextStyle,
+                  textAlign: TextAlign.center,
+                )
+              : Container(),
         ],
       ),
     );
@@ -296,8 +274,9 @@ class RPUITaskState extends State<RPUITask> with CanSaveResult {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Top bar
+              SizedBox(height:3),
               _carouselBar(locale),
+              SizedBox(height:3),
 
               // Body
               Expanded(

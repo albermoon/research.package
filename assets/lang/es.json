@@ -28,5 +28,7 @@
   "choose_one_option": "Elige una opción",
   "skip_this_question": "Salta la pregunta",
   "sign_with_finger": "Por favor firma usando su dedo en la línea de abajo",
-  "review_form": "Revise este formulario a continuación y toca ACEPTAR para continuar."
+  "review_form": "Revise este formulario a continuación y toca ACEPTAR para continuar.",
+  "multiple_selection": "Selección múltiple",
+  "single_selection": "Selección única"
 }

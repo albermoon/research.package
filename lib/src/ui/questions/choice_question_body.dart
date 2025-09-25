@@ -77,6 +77,7 @@ class RPUIChoiceQuestionBodyState extends State<RPUIChoiceQuestionBody>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    RPLocalizations? locale = RPLocalizations.of(context);
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final isTablet = screenWidth > 600;
@@ -88,7 +89,7 @@ class RPUIChoiceQuestionBodyState extends State<RPUIChoiceQuestionBody>
       children: <Widget>[
         // Instrucciones responsive
         Container(
-          margin: EdgeInsets.only(bottom: isSmallScreen ? 12 : 16),
+          margin: EdgeInsets.only(bottom: isSmallScreen ? 4 : 8),
           child: Row(
             children: [
               Icon(
@@ -98,11 +99,11 @@ class RPUIChoiceQuestionBodyState extends State<RPUIChoiceQuestionBody>
                 color: Colors.grey[600],
                 size: isTablet ? 20 : 18,
               ),
-              SizedBox(width: isTablet ? 12 : 8),
+              SizedBox(width: isTablet ? 4 : 6),
               Text(
                 widget.answerFormat.answerStyle == RPChoiceAnswerStyle.MultipleChoice
-                    ? "Selección múltiple"
-                    : "Selección única",
+                    ? (locale?.translate('multiple_selection') ?? 'Multiple selection')
+                    : (locale?.translate('single_selection') ?? 'Single selection'),
                 style: TextStyle(
                   color: Colors.grey[600],
                   fontSize: isTablet ? 16 : (isSmallScreen ? 12 : 14),

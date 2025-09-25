@@ -178,7 +178,7 @@ class RPUIQuestionStepState extends State<RPUIQuestionStep> with CanSaveResult {
                         onPressed: () => skipQuestion(),
                         icon: Icon(Icons.skip_next, size: isTablet ? 20 : 18),
                         label: Text(
-                          "Saltar esta pregunta",
+                          locale?.translate('skip_this_question') ?? "Skip this question",
                           style: TextStyle(fontSize: isTablet ? 16 : 14),
                         ),
                         style: TextButton.styleFrom(
