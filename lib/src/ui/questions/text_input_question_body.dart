@@ -33,36 +33,34 @@ class RPUITextInputQuestionBodyState extends State<RPUITextInputQuestionBody>
 
     super.build(context);
     return TextField(
-      maxLines: 6,
-      onChanged: checkInput,
-      decoration: InputDecoration(
-        hintText: (widget.answerFormat.hintText != null)
-            ? (locale?.translate(widget.answerFormat.hintText!) ??
-                widget.answerFormat.hintText)
-            : widget.answerFormat.hintText,
-        border: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: (CupertinoTheme.of(context).primaryColor ==
-                    CupertinoColors.activeBlue)
-                ? Theme.of(context).primaryColor
-                : CupertinoTheme.of(context).primaryColor,
+        maxLines: 6,
+        minLines: 3,
+        onChanged: checkInput,
+        decoration: InputDecoration(
+          hintText: (widget.answerFormat.hintText != null)
+              ? (locale?.translate(widget.answerFormat.hintText!) ??
+                  widget.answerFormat.hintText)
+              : "Escribe tu respuesta aquí...",
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.all(16),
+          hintStyle: TextStyle(
+            color: Colors.grey[500],
+            fontSize: 16,
+            height: 1.4,
           ),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: (CupertinoTheme.of(context).primaryColor ==
-                    CupertinoColors.activeBlue)
-                ? Theme.of(context).primaryColor
-                : CupertinoTheme.of(context).primaryColor,
-          ),
+        controller: _controller,
+        autofocus: widget.answerFormat.autoFocus,
+        keyboardType: TextInputType.multiline,
+        textInputAction: TextInputAction.newline,
+        autocorrect: widget.answerFormat.disableHelpers ? false : true,
+        enableSuggestions: widget.answerFormat.disableHelpers ? false : true,
+        style: const TextStyle(
+          fontSize: 16,
+          color: Color(0xff2C3E50),
+          height: 1.4,
         ),
-      ),
-      controller: _controller,
-      autofocus: widget.answerFormat.autoFocus,
-      keyboardType: TextInputType.text,
-      autocorrect: widget.answerFormat.disableHelpers ? false : true,
-      enableSuggestions: widget.answerFormat.disableHelpers ? false : true,
-    );
+      );
   }
 
   @override

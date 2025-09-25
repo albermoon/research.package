@@ -35,40 +35,72 @@ class RPUISliderQuestionBodyState extends State<RPUISliderQuestionBody>
         ? (locale?.translate(widget.answerFormat.suffix!) ??
             widget.answerFormat.suffix!)
         : "";
-    return Card(
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        alignment: Alignment.topLeft,
-        child: Column(
-          children: <Widget>[
-            Text(
-              text,
-              style: const TextStyle(fontSize: 18),
-            ),
-            Slider(
-              // activeColor: Theme.of(context).sliderTheme.activeTrackColor,
-              activeColor: (CupertinoTheme.of(context).primaryColor ==
-                      CupertinoColors.activeBlue)
-                  ? Theme.of(context).sliderTheme.activeTrackColor
-                  : CupertinoTheme.of(context).primaryColor.withAlpha(0xff),
-              // inactiveColor: Theme.of(context).sliderTheme.inactiveTrackColor,
-              inactiveColor: (CupertinoTheme.of(context).primaryColor ==
-                      CupertinoColors.activeBlue)
-                  ? Theme.of(context).sliderTheme.inactiveTrackColor
-                  : CupertinoTheme.of(context).primaryColor.withAlpha(0x3d),
-              value: value ?? widget.answerFormat.minValue,
-              onChanged: (double newValue) {
-                setState(() {
-                  value = newValue;
-                });
-                widget.onResultChange(value);
-              },
-              min: widget.answerFormat.minValue,
-              max: widget.answerFormat.maxValue,
-              divisions: widget.answerFormat.divisions,
-            ),
-          ],
+    
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: Colors.grey[300]!,
+          width: 1,
         ),
+      ),
+      child: Column(
+        children: <Widget>[
+          // Valor actual simple
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[800],
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          // Slider con colores del tema
+          Slider(
+            value: value ?? widget.answerFormat.minValue,
+            onChanged: (double newValue) {
+              setState(() {
+                value = newValue;
+              });
+              widget.onResultChange(value);
+            },
+            min: widget.answerFormat.minValue,
+            max: widget.answerFormat.maxValue,
+            divisions: widget.answerFormat.divisions,
+          ),
+          const SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                widget.answerFormat.minValue.toString(),
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                widget.answerFormat.maxValue.toString(),
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

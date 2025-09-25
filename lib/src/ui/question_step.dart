@@ -129,49 +129,101 @@ class RPUIQuestionStepState extends State<RPUIQuestionStep> with CanSaveResult {
   @override
   Widget build(BuildContext context) {
     RPLocalizations? locale = RPLocalizations.of(context);
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(8),
+    return Scaffold(
+      backgroundColor: Colors.grey[50],
+      body: SafeArea(
         child: Column(
           children: [
-            Expanded(
-              child: ListView(
-                padding: const EdgeInsets.all(8),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.fromLTRB(24, 20, 24, 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Title
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        bottom: 24, left: 8, right: 8, top: 0),
-                    child: Text(
-                      locale?.translate(widget.step.title) ?? widget.step.title,
-                      textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.titleLarge,
+                  Text(
+                    locale?.translate(widget.step.title) ?? widget.step.title,
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff2C3E50),
+                      height: 1.2,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: stepBody(widget.step.answerFormat),
-                  ),
-                  widget.step.optional
-                      ? TextButton(
-                          onPressed: () => skipQuestion(),
-                          child: Text(locale!.translate("skip_this_question")),
-                        )
-                      : Container(),
+                  // Badge opcional minimalista
+                  if (widget.step.optional) ...[
+                    const SizedBox(height: 8),
+                    Text(
+                      "Opcional",
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),
-            if (widget.step.footnote != null)
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  locale?.translate(widget.step.footnote!) ??
-                      widget.step.footnote!,
-                  style: Theme.of(context).textTheme.bodySmall,
-                  textAlign: TextAlign.center,
-                  softWrap: true,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: stepBody(widget.step.answerFormat),
+                    ),
+                    if (widget.step.optional) ...[
+                      const SizedBox(height: 24),
+                      TextButton.icon(
+                        onPressed: () => skipQuestion(),
+                        icon: const Icon(Icons.skip_next, size: 18),
+                        label: const Text(
+                          "Saltar esta pregunta",
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        style: TextButton.styleFrom(
+                          foregroundColor: Colors.grey[600],
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        ),
+                      ),
+                    ],
+                    if (widget.step.footnote != null) ...[
+                      const SizedBox(height: 16),
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.info_outline,
+                              color: Colors.grey[600],
+                              size: 16,
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                locale?.translate(widget.step.footnote!) ?? widget.step.footnote!,
+                                style: TextStyle(
+                                  color: Colors.grey[700],
+                                  fontSize: 13,
+                                  fontStyle: FontStyle.italic,
+                                  height: 1.4,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                    const SizedBox(height: 10),
+                  ],
                 ),
               ),
+            ),
           ],
         ),
       ),

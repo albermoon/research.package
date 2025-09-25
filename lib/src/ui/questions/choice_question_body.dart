@@ -77,17 +77,37 @@ class RPUIChoiceQuestionBodyState extends State<RPUIChoiceQuestionBody>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    RPLocalizations? locale = RPLocalizations.of(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text((widget.answerFormat.answerStyle ==
-                    RPChoiceAnswerStyle.MultipleChoice)
-                ? "(${locale?.translate('choose_one_or_more_options') ?? 'Choose one or more options'})"
-                : "(${locale?.translate('choose_one_option') ?? 'Choose one option'})")),
+        // Instrucciones minimalistas sin fondo
+        Container(
+          margin: const EdgeInsets.only(bottom: 16),
+          child: Row(
+            children: [
+              Icon(
+                widget.answerFormat.answerStyle == RPChoiceAnswerStyle.MultipleChoice
+                    ? Icons.checklist_rtl
+                    : Icons.radio_button_checked,
+                color: Colors.grey[600],
+                size: 18,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                widget.answerFormat.answerStyle == RPChoiceAnswerStyle.MultipleChoice
+                    ? "Selección múltiple"
+                    : "Selección única",
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+        // Opciones con diseño fluido
         ListView.builder(
           shrinkWrap: true,
           itemCount: widget.answerFormat.choices.length,
@@ -138,74 +158,113 @@ class _ChoiceButtonState extends State<_ChoiceButton> {
   Widget build(BuildContext context) {
     grpChoice = widget.selected ? widget.choice : null;
     RPLocalizations? locale = RPLocalizations.of(context);
-    return Padding(
-      padding: const EdgeInsets.only(left: 4, right: 4),
-      child: InkWell(
-        onTap: () => widget.selectedCallBack(widget.choice),
-        child: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          (widget.answerStyle == RPChoiceAnswerStyle.SingleChoice)
-              ? Radio(
-                  value: widget.choice,
-                  groupValue: grpChoice,
-                  onChanged: (x) => widget.selectedCallBack(widget.choice),
-
-                  /// If the CupertinoTheme is in use, the primary color won't be the default one.
-                  /// In that case we use the CupertinoTheme primary color here, to match the rest of the app.
-                  activeColor: (CupertinoTheme.of(context).primaryColor ==
-                          CupertinoColors.activeBlue)
-                      ? Theme.of(context).primaryColor
-                      : CupertinoTheme.of(context).primaryColor)
-              : Checkbox(
-                  value: widget.selected,
-                  onChanged: (x) => widget.selectedCallBack(widget.choice),
-                  activeColor: (CupertinoTheme.of(context).primaryColor ==
-                          CupertinoColors.activeBlue)
-                      ? Theme.of(context).primaryColor
-                      : CupertinoTheme.of(context).primaryColor,
-                ),
-          Expanded(
-            child: Container(
-              padding: widget.choice.isFreeText
-                  ? null
-                  : const EdgeInsets.only(bottom: 13),
-              decoration: !widget.isLastChoice
-                  ? BoxDecoration(
-                      border: Border(
-                        bottom:
-                            BorderSide(color: Theme.of(context).dividerColor),
-                      ),
-                    )
-                  : null,
-              child: widget.choice.isFreeText
-                  ? TextField(
-                      onChanged: (newText) => widget.choice.text = newText,
-                      decoration: InputDecoration(
-                        hintText: locale?.translate(widget.choice.text) ??
-                            widget.choice.text,
-                      ),
-                    )
-                  : Text(
-                      locale?.translate(widget.choice.text) ??
-                          widget.choice.text,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      softWrap: true,
+    
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      child: Material(
+        elevation: widget.selected ? 2 : 0,
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.white,
+        child: InkWell(
+          onTap: () => widget.selectedCallBack(widget.choice),
+          borderRadius: BorderRadius.circular(12),
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: widget.selected ? const Color(0xff667eea) : Colors.grey[300]!,
+                width: widget.selected ? 2 : 1,
+              ),
+            ),
+            child: Row(
+              children: [
+                // Indicador de selección simple
+                Container(
+                  width: 24,
+                  height: 24,
+                  decoration: BoxDecoration(
+                    shape: widget.answerStyle == RPChoiceAnswerStyle.SingleChoice 
+                        ? BoxShape.circle 
+                        : BoxShape.rectangle,
+                    borderRadius: widget.answerStyle == RPChoiceAnswerStyle.SingleChoice 
+                        ? null 
+                        : BorderRadius.circular(4),
+                    color: widget.selected ? const Color(0xff667eea) : Colors.transparent,
+                    border: Border.all(
+                      color: widget.selected ? const Color(0xff667eea) : Colors.grey[400]!,
+                      width: 2,
                     ),
+                  ),
+                  child: widget.selected
+                      ? Icon(
+                          widget.answerStyle == RPChoiceAnswerStyle.SingleChoice 
+                              ? Icons.check 
+                              : Icons.check,
+                          color: Colors.white,
+                          size: 16,
+                        )
+                      : null,
+                ),
+                const SizedBox(width: 16),
+                // Contenido de la opción
+                Expanded(
+                  child: widget.choice.isFreeText
+                      ? TextField(
+                          onChanged: (newText) => widget.choice.text = newText,
+                          decoration: InputDecoration(
+                            hintText: locale?.translate(widget.choice.text) ??
+                                widget.choice.text,
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.zero,
+                            hintStyle: TextStyle(
+                              color: Colors.grey[500],
+                              fontSize: 16,
+                            ),
+                          ),
+                          style: TextStyle(
+                            color: Colors.grey[700],
+                            fontWeight: widget.selected ? FontWeight.w600 : FontWeight.normal,
+                            fontSize: 16,
+                          ),
+                        )
+                      : Text(
+                          locale?.translate(widget.choice.text) ??
+                              widget.choice.text,
+                          style: TextStyle(
+                            color: Colors.grey[700],
+                            fontWeight: widget.selected ? FontWeight.w600 : FontWeight.normal,
+                            fontSize: 16,
+                            height: 1.3,
+                          ),
+                          softWrap: true,
+                        ),
+                ),
+                // Botón de información simple
+                if (widget.choice.detailText != null)
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute<dynamic>(
+                          builder: (context) => _DetailTextRoute(
+                            title: widget.choice.text,
+                            content: widget.choice.detailText!,
+                          ),
+                        ),
+                      );
+                    },
+                    icon: Icon(
+                      Icons.info_outline,
+                      color: Colors.grey[600],
+                      size: 20,
+                    ),
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                  ),
+              ],
             ),
           ),
-          if (widget.choice.detailText != null)
-            IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute<dynamic>(
-                      builder: (context) => _DetailTextRoute(
-                        title: widget.choice.text,
-                        content: widget.choice.detailText!,
-                      ),
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.info))
-        ]),
+        ),
       ),
     );
   }
